@@ -1,7 +1,12 @@
 --------------------------------------------------------------------------------
 {-# LANGUAGE OverloadedStrings #-}
-import           Data.Monoid (mappend)
+import           Data.Monoid (mappend, mconcat)
 import           Hakyll
+{- import           Text.Pandoc.Options (readerExtensions
+                                     ,strictExtensions
+                                     ,Extension(Ext_tex_math_single_backslash, Ext_tex_math_dollars)
+                                     ) -}
+{- import           Data.Set (insert, delete) -}
 
 
 --------------------------------------------------------------------------------
@@ -22,7 +27,7 @@ main = hakyll $ do
             >>= relativizeUrls
 
     match "posts/*" $ do
-        route $ setExtension "html"
+        route   $ setExtension "html"
         compile $ pandocCompiler
             >>= loadAndApplyTemplate "templates/post.html"    postCtx
             >>= loadAndApplyTemplate "templates/default.html" postCtx
@@ -42,16 +47,16 @@ main = hakyll $ do
                 >>= loadAndApplyTemplate "templates/default.html" archiveCtx
                 >>= relativizeUrls
 
-
     match "index.html" $ do
-        route idRoute
+        route   idRoute
         compile $ do
             posts <- recentFirst =<< loadAll "posts/*"
-            let indexCtx =
-                    listField "posts" postCtx (return posts) `mappend`
-                    constField "title" "Home"                `mappend`
-                    defaultContext
+            let indexCtx = mconcat [ listField "posts" postCtx (return posts)
+                                   , constField "title" "Home"
+                                   , defaultContext
+                                   ]
 
+            -- pandocCompilerWith defaultHakyllReaderOptions { readerExtensions = Ext_tex_math_dollars `delete` (Ext_tex_math_single_backslash `insert` strictExtensions) } defaultHakyllWriterOptions
             getResourceBody
                 >>= applyAsTemplate indexCtx
                 >>= loadAndApplyTemplate "templates/default.html" indexCtx
