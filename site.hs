@@ -65,8 +65,29 @@ main = hakyll $ do
     match "templates/*" $ compile templateCompiler
 
 
+    create ["feed.xml"] $ do
+        route idRoute
+        compile $ do
+            let feedCtx =
+                    mconcat [ postCtx
+                            , constField "description" "This is the post description"
+                            ]
+            posts <- recentFirst =<< loadAll "posts/*"
+            renderRss myFeedConfiguration feedCtx posts
 --------------------------------------------------------------------------------
 postCtx :: Context String
 postCtx =
     dateField "date" "%B %e, %Y" `mappend`
     defaultContext
+
+--------------------------------------------------------------------------------
+
+myFeedConfiguration :: FeedConfiguration
+myFeedConfiguration =
+  FeedConfiguration
+    { feedTitle       = "Zamboni of The Mind"
+    , feedDescription = "Latest posts of the Zamboni"
+    , feedAuthorName  = "Yuval Langer"
+    , feedAuthorEmail = "yuval.langer@gmail.com"
+    , feedRoot        = "http://yuvallanger.github.io/zamboni-of-the-mind/"
+    }
