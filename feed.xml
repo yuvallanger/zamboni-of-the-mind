@@ -6,8 +6,15 @@
         <description><![CDATA[Latest posts of the Zamboni]]></description>
         <atom:link href="http://yuvallanger.github.io/zamboni-of-the-mind//feed.xml" rel="self"
                    type="application/rss+xml" />
-        <lastBuildDate>Tue, 19 Aug 2014 00:00:00 UT</lastBuildDate>
+        <lastBuildDate>Tue, 26 Aug 2014 00:00:00 UT</lastBuildDate>
         <item>
+    <title>general tar decompression command</title>
+    <link>http://yuvallanger.github.io/zamboni-of-the-mind//posts/2014-08-26-general-tar-decompression-command.html</link>
+    <description><![CDATA[This is the post description]]></description>
+    <pubDate>Tue, 26 Aug 2014 00:00:00 UT</pubDate>
+    <guid>http://yuvallanger.github.io/zamboni-of-the-mind//posts/2014-08-26-general-tar-decompression-command.html</guid>
+</item>
+<item>
     <title>htop, kills, and collateral damage</title>
     <link>http://yuvallanger.github.io/zamboni-of-the-mind//posts/2014-08-19-htop-kills-and-collateral-damage.html</link>
     <description><![CDATA[This is the post description]]></description>
